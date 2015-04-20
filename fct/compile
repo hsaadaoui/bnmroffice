@@ -1,0 +1,67 @@
+#! /bin/bash
+# A simple script to create a library from a .cpp file.
+# check if the file exists
+
+#read all files in the current directory
+files=*.cpp
+
+#if the user asks to compile a specific file then let it be
+if (( $# == 1 ))
+then
+  echo "Usage: $1..."
+  files=$1
+  echo "$files"
+fi
+
+#loop over files content
+for file in $files;
+do
+name=${file%.*}
+if [ ! -f $1 ]; then
+   echo "The file $1 does not exist."
+   exit
+else
+
+# remove the previous copy of the library
+if [ -f lib$name.so ]; then
+   rm lib$name.so
+fi
+
+#compile the new library
+g++ -fPIC -c  $name.cpp -o $name.o -lgsl -lgslcblas
+g++ -shared -Wl,-soname,lib$name.so -o lib$name.so $name.o -lgsl -lgslcblas
+
+# message and exit
+if [ ! -f lib$name.so ]; then
+   echo ""
+   echo "compiling has failed..."
+   echo ""
+   exit
+else
+rm $name.o
+echo ""
+echo "Success: lib$name.so is created from $file"
+
+#If directory does not exist, create it
+if [ ! -d /opt/bnmroffice/fct/ ]; then
+mkdir /opt/bnmroffice/fct
+fi
+
+#copy the library to the desired folder
+dir=/opt/bnmroffice/fct/
+cp lib$name.so $dir
+echo "Sucess: lib$name.so is copied to $dir"
+
+#move the library to lib folder
+mv lib$name.so lib/
+
+#end else condition
+fi
+
+#file exist condition else end
+fi
+
+#end looping over files.
+done
+
+exit 0

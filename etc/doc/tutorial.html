@@ -1,0 +1,1537 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>BnmrOffice Documentation</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="tutorial.tex"> 
+<meta name="date" content="2015-04-17 20:08:00"> 
+<link rel="stylesheet" type="text/css" href="tutorial.css"> 
+</head><body 
+>
+<div class="maketitle">
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+
+<h2 class="titleHead">BnmrOffice&#x00A0;Documentation</h2>
+              <div class="author" ><span 
+class="ecrm-1200">Hassan Saadaoui</span>
+<br /><span 
+class="ecrm-0900">TRIUFM, 4004 Wesbrook mall, Vancouver, BC V6T</span><span 
+class="ecrm-0900">&#x00A0;1Z4</span>
+<br />              <a 
+href="mailto:saadaoui@triumf.ca" ><span 
+class="ectt-0900">saadaoui@triumf.ca</span></a></div>
+<br />
+<div class="date" ><span 
+class="ecrm-1200">April 17, 2015</span></div>
+</div>
+<div 
+class="abstract" 
+>
+<div class="center" 
+>
+<!--l. 67--><p class="noindent" >
+<!--l. 67--><p class="noindent" ><span 
+class="ecbx-0900">Abstract</span></div>
+     <!--l. 68--><p class="noindent" >This document gives a description and tutorial of the <span 
+class="ectt-1000">BnmrOffice</span>&#x00A0;program. The graphical user
+     interface (GUI) of the program is designed using Qt technology. Several well-tested packages are
+     needed to perform necessary tasks such as minimization, reading and plotting data, and scientific
+     calculations. Instructions about installation, structure of the code, and models of the program
+     will be covered.
+</div>
+                                                                                          
+                                                                                          
+<h3 class="likesectionHead"><a 
+ id="x1-1000"></a>Contents</h3>
+<div class="tableofcontents">
+<span class="sectionToc" >1 <a 
+href="#x1-20001" id="QQ2-1-2">Introduction</a></span>
+<br /><span class="sectionToc" >2 <a 
+href="#x1-30002" id="QQ2-1-4">Requirements</a></span>
+<br /><span class="sectionToc" >3 <a 
+href="#x1-40003" id="QQ2-1-6">Package Structure</a></span>
+<br /><span class="sectionToc" >4 <a 
+href="#x1-50004" id="QQ2-1-8">Installation</a></span>
+<br />&#x00A0;<span class="subsectionToc" >4.1 <a 
+href="#x1-60004.1" id="QQ2-1-9"><span 
+class="ectt-1000">QT</span></a></span>
+<br />&#x00A0;<span class="subsectionToc" >4.2 <a 
+href="#x1-70004.2" id="QQ2-1-10"><span 
+class="ectt-1000">MINUIT</span></a></span>
+<br />&#x00A0;<span class="subsectionToc" >4.3 <a 
+href="#x1-80004.3" id="QQ2-1-11"><span 
+class="ectt-1000">MUD</span></a></span>
+<br />&#x00A0;<span class="subsectionToc" >4.4 <a 
+href="#x1-90004.4" id="QQ2-1-12"><span 
+class="ectt-1000">XMGR</span></a></span>
+<br />&#x00A0;<span class="subsectionToc" >4.5 <a 
+href="#x1-100004.5" id="QQ2-1-13"><span 
+class="ectt-1000">GSL</span></a></span>
+<br />&#x00A0;<span class="subsectionToc" >4.6 <a 
+href="#x1-110004.6" id="QQ2-1-14"><span 
+class="ectt-1000">BnmrOffice</span></a></span>
+<br /><span class="sectionToc" >5 <a 
+href="#x1-120005" id="QQ2-1-15">Description of the GUI</a></span>
+<br />&#x00A0;<span class="subsectionToc" >5.1 <a 
+href="#x1-130005.1" id="QQ2-1-17">Menu bar</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.1.1 <a 
+href="#x1-140005.1.1" id="QQ2-1-18">File</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.1.2 <a 
+href="#x1-150005.1.2" id="QQ2-1-19">Edit</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.1.3 <a 
+href="#x1-160005.1.3" id="QQ2-1-20">View</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.1.4 <a 
+href="#x1-170005.1.4" id="QQ2-1-21">Plotting</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.1.5 <a 
+href="#x1-180005.1.5" id="QQ2-1-22">Help</a></span>
+<br />&#x00A0;<span class="subsectionToc" >5.2 <a 
+href="#x1-190005.2" id="QQ2-1-23">Streaming data</a></span>
+<br />&#x00A0;<span class="subsectionToc" >5.3 <a 
+href="#x1-200005.3" id="QQ2-1-25">Search</a></span>
+<br />&#x00A0;<span class="subsectionToc" >5.4 <a 
+href="#x1-210005.4" id="QQ2-1-27">Regression</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.4.1 <a 
+href="#x1-220005.4.1" id="QQ2-1-28">Data input</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.4.2 <a 
+href="#x1-230005.4.2" id="QQ2-1-30">Fitting selection</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.4.3 <a 
+href="#x1-240005.4.3" id="QQ2-1-32">Results output</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.4.4 <a 
+href="#x1-250005.4.4" id="QQ2-1-34">Parameters input</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.4.5 <a 
+href="#x1-260005.4.5" id="QQ2-1-36">Parameters output</a></span>
+<br />&#x00A0;<span class="subsectionToc" >5.5 <a 
+href="#x1-270005.5" id="QQ2-1-38">Results</a></span>
+<br />&#x00A0;<span class="subsectionToc" >5.6 <a 
+href="#x1-280005.6" id="QQ2-1-40">Database</a></span>
+<br />&#x00A0;<span class="subsectionToc" >5.7 <a 
+href="#x1-290005.7" id="QQ2-1-42">Simulations</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.7.1 <a 
+href="#x1-300005.7.1" id="QQ2-1-43">Van-Vleck second moment</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.7.2 <a 
+href="#x1-310005.7.2" id="QQ2-1-45">Superconducting energy gap</a></span>
+<br />&#x00A0;<span class="subsectionToc" >5.8 <a 
+href="#x1-320005.8" id="QQ2-1-47">Converter</a></span>
+<br /><span class="sectionToc" >6 <a 
+href="#x1-330006" id="QQ2-1-49">Fitting functions</a></span>
+                                                                                          
+                                                                                          
+</div>
+                                                                                          
+                                                                                          
+<!--l. 75--><p class="noindent" >
+<h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-20001"></a>Introduction</h3>
+<!--l. 76--><p class="noindent" ><span 
+class="ectt-1000">BnmrOffice</span>&#x00A0;is used to search, view, and analyze ASCII and <span 
+class="cmmi-10">&#x03B2;</span>-NMR (.msr) data. It can be extended by the user to
+read any type of data. The program does many other tasks such as simulations, database interface, and converting
+units. This program is developed by Hassan Saadaoui and is maintained as needed. It is open source and released
+under the General Public License (GPL). No warranty or guarantee of the results is implied. Please
+acknowledge the author if you are using this program in an offline data analysis. It is the least you can do to
+encourage future developments and maintenance of the program. For any questions, please email at
+<a 
+href="mailto:saadaoui@triumf.ca" ><span 
+class="ectt-1000">saadaoui@triumf.ca</span></a>.
+<!--l. 78--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-20011"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 79--><p class="noindent" ><img 
+src="bnmroffice.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;1: </span><span  
+class="content">Regression page of the <span 
+class="ectt-1000">BnmrOffice</span>&#x00A0;graphical user interface.</span></div><!--tex4ht:label?: x1-20011 -->
+                                                                                          
+                                                                                          
+<!--l. 82--><p class="noindent" ></div><hr class="endfigure">
+<h3 class="sectionHead"><span class="titlemark">2   </span> <a 
+ id="x1-30002"></a>Requirements</h3>
+<!--l. 85--><p class="noindent" >The program is developed in <span 
+class="ectt-1000">C++</span>&#x00A0;and <span 
+class="ectt-1000">QT</span>. The latter provides many excellent libraries for programming and building
+the graphical user interface. Many desktops of Linux OS are build using <span 
+class="ectt-1000">QT</span>, such as the KDE desktop. <span 
+class="ectt-1000">QT</span>&#x00A0;is
+cross-platform, modern and well-maintained. The <span 
+class="ectt-1000">BnmrOffice</span>&#8217;s core components are as shown in Fig.
+<a 
+href="#x1-30012">2<!--tex4ht:ref: fig-dep --></a>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="ectt-1000">QT</span>: a <span 
+class="ectt-1000">C++</span>&#x00A0;framework for programming and developing GUI applications. Version 4.8.x or 5.x is needed.
+     </li>
+     <li class="itemize"><span 
+class="ectt-1000">MUD</span>: a library to read the <span 
+class="cmmi-10">&#x03BC;</span>SR data format (.msr) developed at <span 
+class="ectt-1000">CMMS</span>&#x00A0;in <span 
+class="eccc-1000"><span 
+class="small-caps">T</span><span 
+class="small-caps">R</span><span 
+class="small-caps">I</span><span 
+class="small-caps">U</span><span 
+class="small-caps">M</span><span 
+class="small-caps">F</span></span>.
+     </li>
+     <li class="itemize"><span 
+class="ectt-1000">MINUIT</span>: a minimization routine for fitting data.
+     </li>
+     <li class="itemize"><span 
+class="ectt-1000">XMGR</span>: an application to plot and visualize data.
+     </li>
+     <li class="itemize"><span 
+class="ectt-1000">QCustomPlot</span>: to plot data directly onto the GUI (included within the package).
+     </li>
+     <li class="itemize"><span 
+class="ectt-1000">GSL</span>: (optional) for compiling few fitting functions.</li></ul>
+<!--l. 96--><p class="noindent" >In addition to the above requirements, and depending on your system, you may also need some dependency
+packages. The main packages are:
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="ectt-1000">gcc </span>compiler
+     </li>
+     <li class="itemize"><span 
+class="ectt-1000">automake</span></li></ul>
+<!--l. 102--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-30012"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 103--><p class="noindent" ><img 
+src="dependency.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;2: </span><span  
+class="content">External packages required by <span 
+class="ectt-1000">BnmrOffice</span>.</span></div><!--tex4ht:label?: x1-30012 -->
+                                                                                          
+                                                                                          
+<!--l. 106--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 109--><p class="noindent" >
+                                                                                          
+                                                                                          
+<h3 class="sectionHead"><span class="titlemark">3   </span> <a 
+ id="x1-40003"></a>Package Structure</h3>
+<!--l. 112--><p class="noindent" >The package you download will have a structure as shown in Fig. <a 
+href="#x1-40013">3<!--tex4ht:ref: fig-str --></a>. The main folder contains 4 sub-folders and 5
+files.
+     <ul class="itemize1">
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">src/</span></span></span>:  contains  the  source  code.  This  has  also  many  sub-folders  for  each  page  and  a  <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">main.cpp</span></span></span>,
+     <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">mainwindow.(cpp,ui,h)</span></span></span>, <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">plotting.(cpp,h)</span></span></span>, and <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">constants.h</span></span></span> for some shared constants.
+     </li>
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">fct/</span></span></span> contains the fitting functions and script <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">./compile</span></span></span> to execute the codes and create the libraries.
+     </li>
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">etc/</span></span></span> for documentation, images, data, scripts and templates, and the resources.qrc file needed by <span 
+class="ectt-1000">QT</span>.
+     </li>
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">bin/</span></span></span> where the execution binary data is dumped.
+     </li>
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">bnmroffice.pro</span></span></span> used to generate the makefile.
+     </li>
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">AUTHOR</span></span></span> for authorship attributions.
+     </li>
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">LOG</span></span></span> for keeping a log of the package changes over time.
+     </li>
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">COPYING</span></span></span> supplies the GPL agreement.
+     </li>
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">README</span></span></span> for installation instructions.</li></ul>
+<!--l. 130--><p class="noindent" ><hr class="figure"><div class="figure" 
+><a 
+ id="x1-40013"></a> <img 
+src="structure.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;3:  </span><span  
+class="content">Structure  of  the  program.  Upon  execution,  <span 
+class="ectt-1000">BnmrOffice</span>&#x00A0;calls  main  which  calls  mainwindow,
+plotting, and constants. The mainwindow in turn calls pages and menu bar options. In each page, you find
+three files; .cpp, and .h for the programming part, and .ui for the GUI part.</span></div><!--tex4ht:label?: x1-40013 -->
+<!--l. 134--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 135--><p class="noindent" >
+                                                                                          
+                                                                                          
+<h3 class="sectionHead"><span class="titlemark">4   </span> <a 
+ id="x1-50004"></a>Installation</h3>
+<!--l. 139--><p class="noindent" >In addition to bnmroffice, you also need: <span 
+class="ectt-1000">QT</span>, <span 
+class="ectt-1000">MINUIT</span>, <span 
+class="ectt-1000">MUD</span>, <span 
+class="ectt-1000">XMGR</span>, and <span 
+class="ectt-1000">GSL</span>.
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-5002x1">It is likely that your system has <span 
+class="ectt-1000">QT</span>, and <span 
+class="ectt-1000">XMGR</span>&#x00A0;pre-installed. In this case, you only need to install
+     <span 
+class="ectt-1000">MINUIT</span>&#x00A0;and <span 
+class="ectt-1000">MUD</span>&#x00A0;libraries.
+     </li>
+     <li 
+  class="enumerate" id="x1-5004x2">These instructions may seem long, but they are meant to give as much details for the less-experienced
+     users. In most cases, a linux-experienced user may be able to install all libraries without help, except
+     the instructions for installing <span 
+class="ectt-1000">BnmrOffice</span>.
+     </li>
+     <li 
+  class="enumerate" id="x1-5006x3">It is assumed for clarity, in all that follows, that you unpack your downloads to the home folder <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">~/</span></span></span>
+     (done using <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">-C</span><span 
+class="ectt-1000">&#x00A0;~/</span></span></span> or <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">-d</span><span 
+class="ectt-1000">&#x00A0;~/</span></span></span>). That is optional, as you may unpack somewhere else like; <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">~/programs</span></span></span>,
+     <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">~/downloads</span></span></span>. Without <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">-C</span></span></span> or <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">-d</span></span></span> your unpacks will appear in your current directory.
+     </li>
+     <li 
+  class="enumerate" id="x1-5008x4">Any line here preceded by the <span 
+class="cmr-10">$ </span>sign, is a command line that you may copy and paste to your terminal.
+     </li>
+     <li 
+  class="enumerate" id="x1-5010x5">These instructions are meant for Linux users only. Mac users may find them useful, and Windows is
+     not supported yet.
+     </li>
+     <li 
+  class="enumerate" id="x1-5012x6">Download the latest bnmroffice from local computers, sourceforge, or github.<br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;wget</span><span 
+class="ectt-1000">&#x00A0;https://sourceforge.net/projects/bnmroffice/files/bnmroffice.tar.gz/download</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-5014x7">Unpack it <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$ctar</span><span 
+class="ectt-1000">&#x00A0;-xvf</span><span 
+class="ectt-1000">&#x00A0;bnmroffice.tar.gz</span><span 
+class="ectt-1000">&#x00A0;-C</span><span 
+class="ectt-1000">&#x00A0;~/</span></span></span></li></ol>
+<!--l. 155--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.1   </span> <a 
+ id="x1-60004.1"></a><span 
+class="ectt-1000">QT</span></h4>
+<!--l. 156--><p class="noindent" >It is the backbone of the GUI and programming. Download the <span 
+class="ectt-1000">QT</span>&#x00A0;on-line installer from
+<a 
+href="http://www.qt.io/download-open-source/" class="url" ><span 
+class="ectt-1000">http://www.qt.io/download-open-source/</span></a>. It is a light executable which downloads based on your
+system/selections. It provides all <span 
+class="ectt-1000">QT</span>&#x00A0;5.x binary and source packages and latest <span 
+class="ectt-1000">QT</span>&#x00A0;creator.
+<!--l. 159--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.2   </span> <a 
+ id="x1-70004.2"></a><span 
+class="ectt-1000">MINUIT</span></h4>
+<!--l. 160--><p class="noindent" >This package is used for minimization. It is developed at CERN originally in Fortran and later converted to <span 
+class="ectt-1000">C++</span>. It is
+very powerful and well tested. To compile, follow these steps.
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-7002x1">Download latest Minuit2 located at<br 
+class="newline" /><a 
+href="http://seal.web.cern.ch/seal/snapshot/work-packages/mathlibs/minuit/release/download.html" class="url" ><span 
+class="ectt-1000">http://seal.web.cern.ch/seal/snapshot/work-packages/mathlibs/minuit/release/download.html</span></a>
+     </li>
+     <li 
+  class="enumerate" id="x1-7004x2">Unpack and cd<br 
+class="newline" /><br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;tar</span><span 
+class="ectt-1000">&#x00A0;-xvf</span><span 
+class="ectt-1000">&#x00A0;minuit.tar.gz</span><span 
+class="ectt-1000">&#x00A0;-C</span><span 
+class="ectt-1000">&#x00A0;~/</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;cd</span><span 
+class="ectt-1000">&#x00A0;~/minuit</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-7006x3">To install follow the instructions at <br 
+class="newline" /><a 
+href="http://seal.web.cern.ch/seal/snapshot/work-packages/mathlibs/minuit/gettingStarted/autoconf.html" class="url" ><span 
+class="ectt-1000">http://seal.web.cern.ch/seal/snapshot/work-packages/mathlibs/minuit/gettingStarted/autoconf.html</span></a>
+     </li>
+     <li 
+  class="enumerate" id="x1-7008x4">Make SURE that the tests in the tutorial are running as described in the link <br 
+class="newline" /><a 
+href="http://seal.web.cern.ch/seal/snapshot/work-packages/mathlibs/minuit/gettingStarted/testOutput.html" class="url" ><span 
+class="ectt-1000">http://seal.web.cern.ch/seal/snapshot/work-packages/mathlibs/minuit/gettingStarted/testOutput.html</span></a>
+     </li>
+     <li 
+  class="enumerate" id="x1-7010x5">Copy (as superuser) the miniut libraries from <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">minuit/src/.lib/liblcg_Minuit.*</span></span></span> to <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">/usr/lib/</span></span></span> <br 
+class="newline" /><br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;cp</span><span 
+class="ectt-1000">&#x00A0;minuit/src/.lib/liblcg_Minuit.*</span><span 
+class="ectt-1000">&#x00A0;/usr/lib/</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-7012x6">Update ldconfig <br 
+class="newline" /><br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;ldconfig</span></span></span></li></ol>
+<!--l. 181--><p class="noindent" ><span 
+class="ecbx-1000">Extra notes</span>: It is somewhat a challenge to compile Minuit2. These extra notes maybe useful.
+     <ul class="itemize1">
+     <li class="itemize">Depending on your system, you may need to modify few codes namely src/MnUserTransformation.cpp
+     to  add  <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">#include</span><span 
+class="ectt-1000">&#x00A0;&#x003C;cstdio&#x003E;</span></span></span> or  <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">#include</span><span 
+class="ectt-1000">&#x00A0;&#x003C;cstdio.h&#x003E;</span></span></span> just  below  <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">#include</span><span 
+class="ectt-1000">&#x00A0;&#x003C;algorithm&#x003E;</span></span></span> and
+     re-compile.
+     </li>
+     <li class="itemize">Locate  where  libraries  and  header  files  are,  hopefully  in  <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">/usr/local/include/Minuit2</span></span></span>,  and
+     <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">/usr/local/lib/</span></span></span>
+     </li>
+     <li class="itemize">Add the path <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">/usr/local/lib/</span></span></span> to <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">/etc/ld.so.conf</span></span></span> as described here <a 
+href="http://stackoverflow.com/questions/1099981/why-cant-python-find-shared-objects-that-are-in-directories-in-sys-path" class="url" ><span 
+class="ectt-1000">http://stackoverflow.com/questions/1099981/why-cant-python-find-shared-objects-that-are-in-directories-in-sys-path</span></a><br 
+class="newline" /><br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;export</span><span 
+class="ectt-1000">&#x00A0;LD_LIBRARY_PATH=/usr/local/lib</span></span></span> <br 
+class="newline" />or <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;export</span><span 
+class="ectt-1000">&#x00A0;LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH</span></span></span>
+     </li>
+     <li class="itemize">Run ldconfig <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;ldconfig</span></span></span></li></ul>
+<!--l. 198--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.3   </span> <a 
+ id="x1-80004.3"></a><span 
+class="ectt-1000">MUD</span></h4>
+<!--l. 199--><p class="noindent" >This package is needed to read the TRIUMF .msr files.
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-8002x1">Download the MUD library source archive mud.tar.gz from <a 
+href="http://musr.ca/mud" class="url" ><span 
+class="ectt-1000">http://musr.ca/mud</span></a> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;wget</span><span 
+class="ectt-1000">&#x00A0;http://musr.ca/mud/mud.tar.gz</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-8004x2">Unpack and cd <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;tar</span><span 
+class="ectt-1000">&#x00A0;-zxvf</span><span 
+class="ectt-1000">&#x00A0;mud.tar.gz</span><span 
+class="ectt-1000">&#x00A0;-C</span><span 
+class="ectt-1000">&#x00A0;~/</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;cd</span><span 
+class="ectt-1000">&#x00A0;~/mud</span></span></span>
+                                                                                          
+                                                                                          
+     </li>
+     <li 
+  class="enumerate" id="x1-8006x3">Run make with root access (read the install instructions withing the mud package) <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;make</span><span 
+class="ectt-1000">&#x00A0;all</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-8008x4">Copy the files mud.h and libmud.a into <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">/usr/lib/</span></span></span> and <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">/usr/include/</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;cp</span><span 
+class="ectt-1000">&#x00A0;./lib/libmud.a</span><span 
+class="ectt-1000">&#x00A0;/usr/lib/</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;cp</span><span 
+class="ectt-1000">&#x00A0;./src/mud.h</span><span 
+class="ectt-1000">&#x00A0;/usr/include/</span></span></span></li></ol>
+<!--l. 218--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.4   </span> <a 
+ id="x1-90004.4"></a><span 
+class="ectt-1000">XMGR</span></h4>
+<!--l. 219--><p class="noindent" >This is needed for plotting. It is an old but quick and robust GUI, and makes publication quality figures. Subsequent
+versions have been developed, however most of the user community still prefers an outdated version dating back to
+1994. Recently, a resurrected version of the outdated program appeared on Github almost 20 years later! Please
+contact for other options if you are unable to install <span 
+class="ectt-1000">XMGR</span>.
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-9002x1">downloand and Unpack xmgr from https://github.com/mlund/xmgr-resurrection <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;wget</span><span 
+class="ectt-1000">&#x00A0;https://github.com/mlund/xmgr-resurrection/archive/master.zip</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;unzip</span><span 
+class="ectt-1000">&#x00A0;master.zip</span><span 
+class="ectt-1000">&#x00A0;-d</span><span 
+class="ectt-1000">&#x00A0;~/</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;cd</span><span 
+class="ectt-1000">&#x00A0;~/xmgr-resurrection-master</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-9004x2">XMGR has a feature of displaying the copyright each time it starts from a terminal. This can obscure
+     the user from seen the error messages produced by bnmroffice. To avoid this, comment the lines 107-111
+     in main.c and save.
+     </li>
+     <li 
+  class="enumerate" id="x1-9006x3">Typically the following packages are required: libice-dev libx11-dev lesstif2-dev libxmu-dev libxpm-dev.
+     Install if not found in your OS. Try, on ubunto/related systems, get-all (or your system&#8217;s alternative).
+     <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;get-all</span><span 
+class="ectt-1000">&#x00A0;install</span><span 
+class="ectt-1000">&#x00A0;libice-dev</span><span 
+class="ectt-1000">&#x00A0;libx11-dev</span><span 
+class="ectt-1000">&#x00A0;lesstif2-dev</span><span 
+class="ectt-1000">&#x00A0;libxmu-dev</span><span 
+class="ectt-1000">&#x00A0;libxpm-dev</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-9008x4">Read README.md to compile the code. Each system is different; try these given steps: <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;cmake</span><span 
+class="ectt-1000">&#x00A0;.</span><span 
+class="ectt-1000">&#x00A0;-DENABLE_NETCDF=on</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;cmake</span><span 
+class="ectt-1000">&#x00A0;.</span><span 
+class="ectt-1000">&#x00A0;-DCMAKE_INSTALL_PREFIX=/usr/local</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;make</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;make</span><span 
+class="ectt-1000">&#x00A0;install</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-9010x5">If all went well, open the executable <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">xmgr</span></span></span> located likely in <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">src/</span></span></span> or somewhere else within your folder.
+     </li>
+     <li 
+  class="enumerate" id="x1-9012x6">You must locate this file and copy it to <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">/usr/bin</span></span></span> and <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">/usr/local/bin/</span></span></span> if it is not already there. <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;cp</span><span 
+class="ectt-1000">&#x00A0;xmgr</span><span 
+class="ectt-1000">&#x00A0;/usr/bin/</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;cp</span><span 
+class="ectt-1000">&#x00A0;xmgr</span><span 
+class="ectt-1000">&#x00A0;/usr/local/bin/</span></span></span></li></ol>
+<!--l. 248--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.5   </span> <a 
+ id="x1-100004.5"></a><span 
+class="ectt-1000">GSL</span></h4>
+<!--l. 249--><p class="noindent" >This package is optional. It is only needed to compile few fitting functions in <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">fct/</span></span></span>
+                                                                                          
+                                                                                          
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-10002x1">download latest gsl from <a 
+href="http://gnu.mirror.iweb.com/gsl/" class="url" ><span 
+class="ectt-1000">http://gnu.mirror.iweb.com/gsl/</span></a>
+     </li>
+     <li 
+  class="enumerate" id="x1-10004x2">Unpack and cd <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;tar</span><span 
+class="ectt-1000">&#x00A0;-xvf</span><span 
+class="ectt-1000">&#x00A0;gsl-latest.tar.gz</span><span 
+class="ectt-1000">&#x00A0;-C</span><span 
+class="ectt-1000">&#x00A0;~/</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;cd</span><span 
+class="ectt-1000">&#x00A0;~/gsl-latest</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-10006x3">Run configure <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;./configure</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-10008x4">Run make <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;make</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-10010x5">Run make install as root <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;make</span><span 
+class="ectt-1000">&#x00A0;install</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-10012x6">Update libraries cache <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;ldconfig</span></span></span></li></ol>
+<!--l. 273--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.6   </span> <a 
+ id="x1-110004.6"></a><span 
+class="ectt-1000">BnmrOffice</span></h4>
+<!--l. 274--><p class="noindent" >
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-11002x1">cd to the downloaded package <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;cd</span><span 
+class="ectt-1000">&#x00A0;~/bnmroffice</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-11004x2">change the path to bnmr Data, and bnqr Data as defined in constants.h <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;gedit</span><span 
+class="ectt-1000">&#x00A0;src/constants.h</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-11006x3">If Qt binaries are not in your path, set the env (locate where qmake is) <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;PATH=/usr/Qt/5.4/gcc_64/bin:$PATH</span><span 
+class="ectt-1000">&#x00A0;</span></span></span> (change <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"/usr/Qt/5.4/gcc_64/bin"</span></span></span> as per your system) <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;export</span><span 
+class="ectt-1000">&#x00A0;PATH</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-11008x4">Run       qmake.       [Optional:       to       modify       the       default       install       location       use
+     <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$qmake</span><span 
+class="ectt-1000">&#x00A0;PREFIX=/your.new.location/]</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;qmake</span></span></span>
+     </li>
+     <li 
+  class="enumerate" id="x1-11010x5">Run make and make install <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;make</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;make</span><span 
+class="ectt-1000">&#x00A0;install</span></span></span> (needs root)
+     </li>
+     <li 
+  class="enumerate" id="x1-11012x6">cd to directory <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">fct/</span></span></span> and compile all the libraries using the script compile <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;cd</span><span 
+class="ectt-1000">&#x00A0;fct</span></span></span> <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;sudo</span><span 
+class="ectt-1000">&#x00A0;./compile</span></span></span>
+                                                                                          
+                                                                                          
+     </li>
+     <li 
+  class="enumerate" id="x1-11014x7">To test the gui, invoke <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;bnmroffice</span></span></span> [or <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">$</span><span 
+class="ectt-1000">&#x00A0;./bnmroffice</span></span></span> if not installed as root].</li></ol>
+<!--l. 301--><p class="noindent" >
+                                                                                          
+                                                                                          
+<!--l. 302--><p class="noindent" >
+                                                                                          
+                                                                                          
+<h3 class="sectionHead"><span class="titlemark">5   </span> <a 
+ id="x1-120005"></a>Description of the GUI</h3>
+<!--l. 304--><p class="noindent" >The GUI has a menu bar at the very top and a tab widget below it. This tab widget contains 6 tabs (pages): <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">Search</span></span></span>,
+<span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">Analysis</span></span></span>, <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">Results</span></span></span>, <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">Database</span></span></span>, <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">Simulations</span></span></span>, and <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">Converter</span></span></span>. Each of these contains widgets that the user may
+change and push buttons for issuing signals. The menu bar and the pages functionalities will be described next.
+<hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-120014"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 307--><p class="noindent" ><img 
+src="menubar.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;4: </span><span  
+class="content"><span 
+class="ectt-1000">BnmrOffice</span>&#x00A0;menu bar and main pages.</span></div><!--tex4ht:label?: x1-120014 -->
+                                                                                          
+                                                                                          
+<!--l. 310--><p class="noindent" ></div><hr class="endfigure">
+<h4 class="subsectionHead"><span class="titlemark">5.1   </span> <a 
+ id="x1-130005.1"></a>Menu bar</h4>
+<!--l. 312--><p class="noindent" >
+<h5 class="subsubsectionHead"><span class="titlemark">5.1.1   </span> <a 
+ id="x1-140005.1.1"></a>File</h5>
+<!--l. 313--><p class="noindent" >This has 4 options; (i) invoke a new window, (ii) open an old version of <span 
+class="ectt-1000">BnmrOffice</span>, (iii) clean <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">temp.*</span></span></span>
+data which removes all files that the program creates for plotting purposes, and (iv) quit/close the
+window.
+<h5 class="subsubsectionHead"><span class="titlemark">5.1.2   </span> <a 
+ id="x1-150005.1.2"></a>Edit</h5>
+<!--l. 315--><p class="noindent" >It has editing options. For now, the user can overwrite the path variables of <span 
+class="cmmi-10">&#x03B2;</span>-<span 
+class="eccc-1000"><span 
+class="small-caps">N</span><span 
+class="small-caps">M</span><span 
+class="small-caps">R</span></span>&#x00A0;and <span 
+class="cmmi-10">&#x03B2;</span>-<span 
+class="eccc-1000"><span 
+class="small-caps">N</span><span 
+class="small-caps">Q</span><span 
+class="small-caps">R</span></span>&#x00A0;archive predefined in
+<span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">constants.h</span></span></span>. Note that this is a temporary overwrite, and to make it permanent, one must modify the <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">constants.h</span></span></span>
+and re-compile.
+<h5 class="subsubsectionHead"><span class="titlemark">5.1.3   </span> <a 
+ id="x1-160005.1.3"></a>View</h5>
+<!--l. 317--><p class="noindent" >It has the option of invoking a live/stream data window (see <a 
+href="#x1-190005.2">5.2<!--tex4ht:ref: Streaming data --></a>). Also, the user can change the view of the program
+widgets (default is <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">fuse</span></span></span>), and the color of the GUI (default is <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Green-white"</span></span></span>).
+<h5 class="subsubsectionHead"><span class="titlemark">5.1.4   </span> <a 
+ id="x1-170005.1.4"></a>Plotting</h5>
+<!--l. 319--><p class="noindent" >Several check-boxes can be used for plotting purposes. The <span 
+class="ectt-1000">XMGR</span>&#x00A0;plots are closed by default after a new
+window is plotted to avoid the buildup of many <span 
+class="ectt-1000">XMGR</span>&#x00A0;windows. To keep the old plots active one must
+check the box <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Keep</span><span 
+class="ectt-1000">&#x00A0;Plots"</span></span></span>. Also, in <span 
+class="ectt-1000">XMGR</span>, the plots are by default separated, to combine them in one
+plot the user could check the box <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Combine</span><span 
+class="ectt-1000">&#x00A0;Plots"</span></span></span>. At the moment, the GUI creates a lot of ASCII
+files in the background as needed by <span 
+class="ectt-1000">XMGR</span>. These files are deleted by default after the user signals are
+processed. If the user wants to keep copies of the ASCII file, the box <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Keep</span><span 
+class="ectt-1000">&#x00A0;ASCII</span><span 
+class="ectt-1000">&#x00A0;files"</span></span></span> must be
+checked.
+<h5 class="subsubsectionHead"><span class="titlemark">5.1.5   </span> <a 
+ id="x1-180005.1.5"></a>Help</h5>
+<!--l. 322--><p class="noindent" >This contains the <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"About"</span></span></span> dialog for authorship and version of the current GUI, <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Tips"</span></span></span> dialog which does nothing
+but remind the user that by hovering the mouse index onto labels one can get the tool-tips for each widget.
+<span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Tutorial"</span></span></span> invokes an HTML page with these instructions.
+<!--l. 324--><p class="noindent" >
+                                                                                          
+                                                                                          
+<h4 class="subsectionHead"><span class="titlemark">5.2   </span> <a 
+ id="x1-190005.2"></a>Streaming data</h4>
+<!--l. 326--><p class="noindent" >This window is invoked from <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">view/show</span><span 
+class="ectt-1000">&#x00A0;streaming</span><span 
+class="ectt-1000">&#x00A0;window</span></span></span>. It streams data during regular intervals of time as
+defined by the user. The user can choose the type of data (only <span 
+class="ectt-1000">BNMR</span>&#x00A0;is supported at the moment), run
+number, year, and settings for plotting options (bin, x min, x max). The user must specify the update
+interval.
+<!--l. 331--><p class="noindent" >Upon clicking on Start, the GUI starts a counter (in seconds) and then plots the data after each interval. The user
+can change the input variables without stopping the plotting as the GUI reads the input and plots the data again at
+the end of the end of each interval.
+<!--l. 334--><p class="noindent" >For <span 
+class="ectt-1000">BNMR</span>&#x00A0;data, at the moment, the GUI displays 4 plots and each contain 3 or 4 grouped curves. The
+first plot displays the asymmetries of the experiment counters of polarized <sup><span 
+class="cmr-7">8</span></sup>Li<sup><span 
+class="cmr-7">+</span></sup> beam. These are; the
+positive helicity asymmetry (defined as <img 
+src="tutorial0x.png" alt="counter1-counter2
+counter1+counter2-"  class="frac" align="middle"> during the + helicity of the laser), the negative
+helicity asymmetry, and the total asymmetry which is the difference of the first two. In the 2nd plot,
+similar asymmetries for the neutral beam are presented. In the 3rd plot, the counters of polarized
+<sup><span 
+class="cmr-7">8</span></sup>Li<sup><span 
+class="cmr-7">+</span></sup> are shown, and the counts of beam monitors are shown in plot 4. An example is shown in Fig.
+<a 
+href="#x1-190015">5<!--tex4ht:ref: fig-stream --></a>
+<!--l. 338--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-190015"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 339--><p class="noindent" ><img 
+src="stream.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;5: </span><span  
+class="content">Streaming window: it streams data at regular intervals. This could be useful for on-line experiments.
+</span></div><!--tex4ht:label?: x1-190015 -->
+                                                                                          
+                                                                                          
+<!--l. 342--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 343--><p class="noindent" >
+                                                                                          
+                                                                                          
+<h4 class="subsectionHead"><span class="titlemark">5.3   </span> <a 
+ id="x1-200005.3"></a>Search</h4>
+<!--l. 345--><p class="noindent" >In this page, the user can find the data that corresponds to his search query. There are 9 fields that user can
+change. In the first line one finds, the title field (must be a string), experiment type (either <span 
+class="cmmi-10">&#x03B2;</span>-<span 
+class="eccc-1000"><span 
+class="small-caps">N</span><span 
+class="small-caps">M</span><span 
+class="small-caps">R</span></span>&#x00A0;or
+<span 
+class="cmmi-10">&#x03B2;</span>-<span 
+class="eccc-1000"><span 
+class="small-caps">N</span><span 
+class="small-caps">Q</span><span 
+class="small-caps">R</span></span>&#x00A0;data at the moment), type of data (1f, 1n, 20, and 2e modes of <span 
+class="ectt-1000">BNMR</span>&#x00A0;data). In the 2nd line,
+the user can specify the intervals of year, run number and elapsed time. In the 3rd line, the user can
+specify the interval of independent variables of temperature, energy, and field. These are defined in
+<span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">tab_search.cpp</span></span></span> code. The user can start the search by clicking on the pushbutton <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">Search</span></span></span>. After sometime, the
+search results will be returned in a table with 9 columns. These are (1) check-box columns to choose
+which runs to send to the analysis page, (2) run number, (3) year, (4) type of experiment mode, (5)
+elapsed time in minutes, (6) temperature in K, (7) energy in keV, (8) field in Gauss, and (9) the run
+title.
+<!--l. 351--><p class="noindent" >The user can also display more columns by clicking on the pushbutton <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"More"</span></span></span> which displays a dialog that contains
+more fields to display. These fields are pre-defined in a template file called <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">bnmr-bnqr-logs.txt</span></span></span> which contains 5
+columns, (i) Labels, (ii) Symbols, (iii) Exp, (iv) Path, and (v) Unit. The user can change this file to add more fields
+or to update the previous ones. The program will read the file saved in the current working directory, and if not
+found, it reads the default file from <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">resources.qrc</span></span></span>.
+<!--l. 353--><p class="noindent" >The user can select all runs by clicking on <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Select"</span></span></span> and send the selected runs to the next page for analysis by
+pushing the button <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Next"</span></span></span>. <hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-200016"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 356--><p class="noindent" ><img 
+src="search.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;6: </span><span  
+class="content">Searching the .msr files. More fields can be displayed after clicking on "More" and checking the
+desired fields. These fields are predefined in <span 
+class="ectt-1000">"bnmr-bnqr-logs.txt" </span>which can be edited by pushing <span 
+class="ectt-1000">"Edit"</span>.</span></div><!--tex4ht:label?: x1-200016 -->
+                                                                                          
+                                                                                          
+<!--l. 359--><p class="noindent" ></div><hr class="endfigure">
+                                                                                          
+                                                                                          
+<h4 class="subsectionHead"><span class="titlemark">5.4   </span> <a 
+ id="x1-210005.4"></a>Regression</h4>
+<!--l. 363--><p class="noindent" >This is the main page of the entire program and by far the most complicated to program. The network of
+background signals are large and may cause the program to crash unexpectedly. Please report these
+cases.
+<!--l. 370--><p class="noindent" >
+<h5 class="subsubsectionHead"><span class="titlemark">5.4.1   </span> <a 
+ id="x1-220005.4.1"></a>Data input</h5>
+<!--l. 371--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-220017"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 372--><p class="noindent" ><img 
+src="analyze-bnmr.png" alt="PIC"  
+> <img 
+src="analyze-ascii.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;7: </span><span  
+class="content">Options for data input</span></div><!--tex4ht:label?: x1-220017 -->
+                                                                                          
+                                                                                          
+<!--l. 376--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 377--><p class="noindent" >The user can choose to fit either ASCII text data or <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.msr</span></span></span> files of the <span 
+class="ectt-1000">CMMS</span>&#x00A0;facility. The user can locate the data
+using the tool button next to Data for ASCII files. For <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.msr</span></span></span> files, the user can only specify the run year and number
+and the program looks it up in the archive directory (defined in <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">constants.h</span></span></span> or <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">Edit</span></span></span>). For each of
+these types of data, there are three ways to specify the input data. For the <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.msr</span></span></span> type follow these
+instructions;
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-22003x1">Using run numbers directly:
+         <ul class="itemize1">
+         <li class="itemize">A year must always be specified.
+         </li>
+         <li class="itemize">"|" is used to separate runs of different years.
+         </li>
+         <li class="itemize">"," (coma) separates between run numbers.
+         </li>
+         <li class="itemize">"-" separates between two numbers, which defines a range of runs.
+         </li>
+         <li class="itemize">"(-)" is used to flip the asymmtry opposite to the original one, (either up or down).
+         </li>
+         <li class="itemize">No other characters or space are allowed.
+         </li>
+         <li class="itemize">Example 1: "2011:45012,45672,42333|2013:45333(-),40123"
+         </li>
+         <li class="itemize">Example 2: "2011:40100-40110"</li></ul>
+     </li>
+     <li 
+  class="enumerate" id="x1-22005x2">Using <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.inf</span></span></span> files:
+         <ul class="itemize1">
+         <li class="itemize">It is best to create <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.inf</span></span></span> file out of <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">temp.inf</span></span></span> created by the program from a direct input method
+         above.
+         </li>
+         <li class="itemize">The file <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">temp.inf</span></span></span> is found in the working directory.
+         </li>
+         <li class="itemize">Must follow the same template as of <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">temp.inf</span></span></span>
+         </li>
+         <li class="itemize">The user can change the file and update the independent variables.</li></ul>
+     </li>
+     <li 
+  class="enumerate" id="x1-22007x3">Using <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.list</span></span></span> files
+         <ul class="itemize1">
+         <li class="itemize">The content of the file must follow the same instructions as run numbers.
+         </li>
+         <li class="itemize">Example: A file named <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"myfavoriteruns.list"</span></span></span>, contains a single line<br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">2010:45012,45672,41223,45012,40072,42313|2014:45123(-),40003</span></span></span>.
+         </li></ul>
+     </li></ol>
+                                                                                          
+                                                                                          
+<!--l. 407--><p class="noindent" >Reading/fitting ASCII files follows very similar instruction to above. Files to fit should be either written in the
+lineEdit (separated by commas) or; in files of <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.list</span></span></span> or <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.inf</span></span></span> extension as above. The file must reside in the working
+directory, otherwise its full name with path should be given. Examples;
+     <ul class="itemize1">
+     <li class="itemize">Direct input: "file1.txt,file2.txt,file3.txt"
+     </li>
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.list</span></span></span> file: contains a single ascii line:<br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"file1.txt,file2.txt,file3.txt"</span></span></span>
+     </li>
+     <li class="itemize"><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.inf</span></span></span> file: <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"myruns.inf"</span></span></span>, contains the columns<br 
+class="newline" />files year temp<br 
+class="newline" />file1.txt 2015 100<br 
+class="newline" />file2.txt 2014 200<br 
+class="newline" />file3.txt 2015 300<br 
+class="newline" /></li></ul>
+<!--l. 419--><p class="noindent" >The format of <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.msr</span></span></span> files to create are pre-defined as asymmetry or counts and are all in xydy format. The inner
+format of the ASCII file must be set in the field <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">format</span></span></span> and these must be columns with numbers and no other
+characters.
+<!--l. 421--><p class="noindent" >For the <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">.msr</span></span></span> files, there are several more options to tweak, such as the averaging of 1f runs, ignoring some bad 1f
+scans, and setting the type of 2e asymmetry. An experienced <span 
+class="ectt-1000">BNMR</span>&#x00A0;user must be familiar with these
+options.
+<!--l. 423--><p class="noindent" >The data can be binned and the limits of xmin and xmax values can be set in the options (settings) field. These must
+be numbers separated by commas.
+<h5 class="subsubsectionHead"><span class="titlemark">5.4.2   </span> <a 
+ id="x1-230005.4.2"></a>Fitting selection</h5>
+<!--l. 429--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-230018"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 430--><p class="noindent" ><img 
+src="analyze-fct.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;8: </span><span  
+class="content">Fitting functions input.</span></div><!--tex4ht:label?: x1-230018 -->
+                                                                                          
+                                                                                          
+<!--l. 433--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 435--><p class="noindent" >The user can select the function to use, the mode of fitting (single or global) and type of errors. The functions are
+defined in the folder <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">fct/</span></span></span> and the user can add new ones by invoking the selection <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Create</span><span 
+class="ectt-1000">&#x00A0;New"</span></span></span> in the functions
+comboBox. The user must follow the instructions in the pop-up window and then select <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Update"</span></span></span> from the
+comboBox. This will add the newly defined function to the list.
+<!--l. 437--><p class="noindent" >For the global method the user can choose to show all parameters for each run or not. These settings can be changed
+by double clicking on the initial parameters tab-widget.
+<!--l. 439--><p class="noindent" >The errors are defined by <span 
+class="ectt-1000">MINUIT</span>&#x00A0;routine, and are symmetric (Migrad) or asymmetric (Minos) errors. The latter are
+heavy to compute and the program may become unresponsive for sometime while the computation is going on. For
+further details read <a 
+href="http://seal.web.cern.ch/seal/documents/minuit/mnerror.pdf" class="url" ><span 
+class="ectt-1000">http://seal.web.cern.ch/seal/documents/minuit/mnerror.pdf</span></a>.
+<h5 class="subsubsectionHead"><span class="titlemark">5.4.3   </span> <a 
+ id="x1-240005.4.3"></a>Results output</h5>
+<!--l. 441--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-240019"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 442--><p class="noindent" ><img 
+src="analyze-res.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;9: </span><span  
+class="content">Fitting results output.</span></div><!--tex4ht:label?: x1-240019 -->
+                                                                                          
+                                                                                          
+<!--l. 445--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 446--><p class="noindent" >The fitting results are written to this file. The user must specify a name, or browse for an old file. The results can be
+either appended (using <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">Append</span></span></span>) to the old file keeping its content (useful for doing run by run fitting), or the old file
+is overwritten using <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">Rewrite</span></span></span>.
+<h5 class="subsubsectionHead"><span class="titlemark">5.4.4   </span> <a 
+ id="x1-250005.4.4"></a>Parameters input</h5>
+<!--l. 448--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-2500110"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 450--><p class="noindent" ><img 
+src="analyze-table-s.png" alt="PIC"  
+> <img 
+src="analyze-table-g.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;10: </span><span  
+class="content">Input parameters for (a) single and (b) global fits. (a) The fit starts from this table for each file,
+or from the results of the last file in the sequence enabled by double clicking on the <span 
+class="ectt-1000">"initial parameters"</span>.
+(b) If a parameter is shared between files, only the parameter of the first run is active and the same parameter
+for other files becomes inactive. </span></div><!--tex4ht:label?: x1-2500110 -->
+                                                                                          
+                                                                                          
+<!--l. 454--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 455--><p class="noindent" >The initial parameters are read from the function library. The table contains 5 columns for the single method,
+and 6 columns for the global method. These columns are; (1) parameter name, (2) initial value of the
+parameter, (3) lower limit, (4) upper limit, (5) fix the parameter checkBox, and (6) share the parameter
+checkBox.
+<!--l. 458--><p class="noindent" >These parameters can be changed, and saved in a template for future use by right-clicking on the specific table and
+then choose <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"save</span><span 
+class="ectt-1000">&#x00A0;as</span><span 
+class="ectt-1000">&#x00A0;a</span><span 
+class="ectt-1000">&#x00A0;template"</span></span></span>. This creates a text file template with a prefix <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">".tab"</span></span></span>. The user can change this
+text file as required, and the template can be loaded later for a similar function.
+<h5 class="subsubsectionHead"><span class="titlemark">5.4.5   </span> <a 
+ id="x1-260005.4.5"></a>Parameters output</h5>
+<!--l. 460--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-2600111"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 462--><p class="noindent" ><img 
+src="analyze-res-g.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;11: </span><span  
+class="content">Results of a global fit where the shared parameter is Amplitude. </span></div><!--tex4ht:label?: x1-2600111 -->
+                                                                                          
+                                                                                          
+<!--l. 465--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 466--><p class="noindent" >This prints out the output of the fit. The number of significant figures can be set by double-clicking
+on the results tab. One can also change the number of errors to show, and the way the filename is
+displayed.
+                                                                                          
+                                                                                          
+<h4 class="subsectionHead"><span class="titlemark">5.5   </span> <a 
+ id="x1-270005.5"></a>Results</h4>
+<!--l. 471--><p class="noindent" >This page reads the files of fitting parameters created by the analysis page. It displayed a table with two columns,
+the left column represents the x-axis and the right column the y-axis. Each column contains all fields found in the
+specified file (as created during the fitting).
+<!--l. 475--><p class="noindent" >The user can check any of the fields, and a matrix of plots of y versus x will be displayed. The user can clear all
+choices using <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Clear"</span></span></span>, and kill/delete the active table using <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Purge"</span></span></span>.
+<!--l. 477--><p class="noindent" >The plots are made using <span 
+class="ectt-1000">XMGR</span>&#x00A0;plotting program. Horizontal or vertical error bars are displayed if specified in the
+chosen parameter. The user can edit the <span 
+class="ectt-1000">XMGR</span>&#x00A0;windows as he pleases and can make publication quality figures out of
+these results. <hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-2700112"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 480--><p class="noindent" ><img 
+src="results1.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;12: </span><span  
+class="content">Results page.</span></div><!--tex4ht:label?: x1-2700112 -->
+                                                                                          
+                                                                                          
+<!--l. 483--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 486--><p class="noindent" >
+                                                                                          
+                                                                                          
+<h4 class="subsectionHead"><span class="titlemark">5.6   </span> <a 
+ id="x1-280005.6"></a>Database</h4>
+<!--l. 488--><p class="noindent" >This page offers a user-friendly interface for databases, and uses SQLite language
+<a 
+href="http://www.tutorialspoint.com/sqlite/sqlite_overview.htm" class="url" ><span 
+class="ectt-1000">http://www.tutorialspoint.com/sqlite/sqlite_overview.htm</span></a>. At the start, the user must select a database by
+clicking on the toolButton next to <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Database"</span></span></span>, or create a new one from the <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Querry"</span></span></span> lineEdit using SQL
+commands and hitting <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Execute"</span></span></span>. It is advised to use an SQL manager (like the friendly browser extension SQLite
+manager) to create databases and tables. Then, one can use this interface to add/delete rows and edit cells, interact
+with the content of the database. But an experienced user can do everything from this page as well by executing the
+<span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Querry"</span></span></span> commands.
+<!--l. 493--><p class="noindent" >Te get familiar with the interface two databases are pre-made and come with the program and can be found in the
+folder <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"etc/sql/"</span></span></span>. These are called <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"bnmr.sqlite"</span></span></span> and <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"physics.sqlite"</span></span></span>. Each contain several
+tables. The user can load any of these tables from the comboBox, and a model of the table will be
+displayed.
+<!--l. 495--><p class="noindent" >The user can execute any query to study the loaded table. Example;<br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">SELECT</span><span 
+class="ectt-1000">&#x00A0;*</span><span 
+class="ectt-1000">&#x00A0;FROM</span><span 
+class="ectt-1000">&#x00A0;table_of_constants</span><span 
+class="ectt-1000">&#x00A0;where</span><span 
+class="ectt-1000">&#x00A0;Unit="kg"</span></span></span> will select all fields in the <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">table_of_constants</span></span></span> where the
+unit is in kg. The user must be familiar with SQL to execute from the Query field. Any table can be changed by
+adding or deleting rows. Also each cell can be edited, or displayed by clicking on <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"Open"</span></span></span>. This can be used to display
+a cell with a lot of text or view the cell as image if the full path of the image was given in that cell.
+<hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-2800113"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 498--><p class="noindent" ><img 
+src="database1.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;13: </span><span  
+class="content">Database interface loaded with a table of physical constants.</span></div><!--tex4ht:label?: x1-2800113 -->
+                                                                                          
+                                                                                          
+<!--l. 501--><p class="noindent" ></div><hr class="endfigure">
+                                                                                          
+                                                                                          
+<h4 class="subsectionHead"><span class="titlemark">5.7   </span> <a 
+ id="x1-290005.7"></a>Simulations</h4>
+<!--l. 505--><p class="noindent" >
+<h5 class="subsubsectionHead"><span class="titlemark">5.7.1   </span> <a 
+ id="x1-300005.7.1"></a>Van-Vleck second moment</h5>
+<!--l. 506--><p class="noindent" >In this page, one computes the dipolar second moment using the Van-Vleck method [J. H. Van Vleck, Phys. Rev. 74,
+1168 (1948)]. The user specifies the implanted ions, target material, and type of lattice, and then the coordinates of
+each site. The results will be plotted on the same page using <span 
+class="ectt-1000">QCustomPlot</span>&#x00A0;libraries. The plots can
+be exported into .pdf, .png, and .bmp files. ASCII files of the computed are created in the working
+directory.
+<!--l. 508--><p class="noindent" >The simulation is tested against two published papers in (1) Lattice locations of 8Li in Cu, Hyperfine
+Interactions 120/121 (1999) 419-422. (2) Location of 12B in Al and Cu, Phys Rev B 13, 34 (1976). The
+source code of this calculation is originally written by Samir Tabara, and adapted for <span 
+class="ectt-1000">BnmrOffice</span>.
+<hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-3000114"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 511--><p class="noindent" ><img 
+src="sim-vv.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;14: </span><span  
+class="content">Van-Vleck calculation</span></div><!--tex4ht:label?: x1-3000114 -->
+                                                                                          
+                                                                                          
+<!--l. 514--><p class="noindent" ></div><hr class="endfigure">
+                                                                                          
+                                                                                          
+<h5 class="subsubsectionHead"><span class="titlemark">5.7.2   </span> <a 
+ id="x1-310005.7.2"></a>Superconducting energy gap</h5>
+<!--l. 519--><p class="noindent" >This page performs calculation of the superconducting energy gap, for a given gap symmetry and parameters such as
+the penetration depth and coherence length. The definitions can be found in the papers H. Saadaoui <span 
+class="ecti-1000">et al.</span>, Phys.
+Rev. B 88, 094518 (2013), and R. Prozorov and R. W. Giannetta, Supercond. Sci. Technol. 19, 41
+(2006).
+<!--l. 523--><p class="noindent" >The simulation computes three functions, the second moment of the magnetic field distribution versus temperature
+(<span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">sigma_vs_temp</span></span></span>), the second moment of the magnetic field distribution versus field (<span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">sigma_vs_field</span></span></span>), and the
+penetration depth versus temperature (<span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">lambda_vs_temp</span></span></span>).
+<!--l. 525--><p class="noindent" >Four forms of the energy gap <span 
+class="cmr-10">&#x0394;(</span><span 
+class="cmmi-10">T,k</span><span 
+class="cmr-10">) </span>are pre-defined; the <span 
+class="cmmi-10">s</span>-wave, <span 
+class="cmmi-10">d</span>-wave, <span 
+class="cmmi-10">s</span>-wave-dirty and <span 
+class="cmmi-10">d</span>-wave non-monotonic.
+These are defined in Eqs. 17 and 18 in the Prozorov paper. Two empirical forms of the second moment of the
+magnetic field distribution versus field are specified, the Modified-London and Ginsburg-Landau forms. Please refer
+to the paper of H. Saadaoui <span 
+class="ecti-1000">et al.</span>, Phys. Rev. B 88, 094518 (2013) for further details about these
+functions.
+<!--l. 527--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                          
+                                                                                          
+<a 
+ id="x1-3100115"></a>
+                                                                                          
+                                                                                          
+
+<!--l. 528--><p class="noindent" ><img 
+src="sim-eg-in.png" alt="PIC"  
+> <img 
+src="sim-eg-out.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;15: </span><span  
+class="content">Input and output of the energy-gap interface</span></div><!--tex4ht:label?: x1-3100115 -->
+                                                                                          
+                                                                                          
+<!--l. 532--><p class="noindent" ></div><hr class="endfigure">
+                                                                                          
+                                                                                          
+<h4 class="subsectionHead"><span class="titlemark">5.8   </span> <a 
+ id="x1-320005.8"></a>Converter</h4>
+<!--l. 536--><p class="noindent" >This page is used to convert between several units useful for a <span 
+class="ectt-1000">BNMR</span>&#x00A0;user. The definitions are given in
+<span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">"tab_convert.cpp"</span></span></span> file. The user can change any field and hit Enter, and the associated field will
+update.
+     <ul class="itemize1">
+     <li class="itemize">Magnetic Field (G) = Frequency (kHz)/0.63015
+     </li>
+     <li class="itemize">Magnetic Field (G) = 2.2131*Current(Amp) + 0.175
+     </li>
+     <li class="itemize">Pulse duration (ms) = 5*10000/<span 
+class="cmmi-10">&#x03C0;</span>/Bandwidth(Hz)
+     </li>
+     <li class="itemize">Pulse duration (ms) = 1764.8/Bandwidth(Hz)
+     </li>
+     <li class="itemize">Magnetic Field (G) = Frequency (kHz)/85.16</li></ul>
+<!--l. 545--><p class="noindent" ><hr class="figure"><div class="figure" 
+><a 
+ id="x1-3200116"></a>
+
+<!--l. 547--><p class="noindent" ><img 
+src="converter.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;16: </span><span  
+class="content">Converter page.</span></div><!--tex4ht:label?: x1-3200116 -->
+<!--l. 550--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 552--><p class="noindent" >
+<h3 class="sectionHead"><span class="titlemark">6   </span> <a 
+ id="x1-330006"></a>Fitting functions</h3>
+<!--l. 553--><p class="noindent" >The user can write his own fitting functions in the directory <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">fct/</span></span></span>. A new function must be written in <span 
+class="ectt-1000">C++</span>&#x00A0;but
+requires minimal programming knowledge of this language. At template of a typical function is as follows:
+<!--l. 557-->
+<div class="lstlisting" id="listing-1"><span class="label"><a 
+ id="x1-33001r1"></a></span>#include&#x00A0;&#x003C;iostream&#x003E;&#x00A0;<br /><span class="label"><a 
+ id="x1-33002r2"></a></span>#include&#x00A0;&#x003C;fstream&#x003E;&#x00A0;<br /><span class="label"><a 
+ id="x1-33003r3"></a></span>#include&#x00A0;&#x003C;math.h&#x003E;&#x00A0;<br /><span class="label"><a 
+ id="x1-33004r4"></a></span>#include&#x00A0;&#x003C;stdio.h&#x003E;&#x00A0;<br /><span class="label"><a 
+ id="x1-33005r5"></a></span>#include&#x00A0;&#x003C;vector&#x003E;&#x00A0;<br /><span class="label"><a 
+ id="x1-33006r6"></a></span>#include&#x00A0;&#x003C;sstream&#x003E;&#x00A0;<br /><span class="label"><a 
+ id="x1-33007r7"></a></span>#include&#x00A0;&#x003C;string.h&#x003E;&#x00A0;<br /><span class="label"><a 
+ id="x1-33008r8"></a></span>#include&#x00A0;&#x003C;iostream&#x003E;&#x00A0;<br /><span class="label"><a 
+ id="x1-33009r9"></a></span>using&#x00A0;namespace&#x00A0;std;&#x00A0;<br /><span class="label"><a 
+ id="x1-33010r10"></a></span>#include&#x00A0;"parameters.h"&#x00A0;<br /><span class="label"><a 
+ id="x1-33011r11"></a></span>&#x00A0;<br /><span class="label"><a 
+ id="x1-33012r12"></a></span><span 
+class="ecti-1000">//</span><span 
+class="ecti-1000">Wrap</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">in</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">"</span><span 
+class="ecti-1000">C</span><span 
+class="ecti-1000">"</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">for</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">the</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">compiler</span><span 
+class="ecti-1000">.</span>&#x00A0;<br /><span class="label"><a 
+ id="x1-33013r13"></a></span>extern&#x00A0;"C"&#x00A0;<br /><span class="label"><a 
+ id="x1-33014r14"></a></span>{&#x00A0;<br /><span class="label"><a 
+ id="x1-33015r15"></a></span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">//</span><span 
+class="ecti-1000">The</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">defalt</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">initial</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">parameters</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">loaded</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">to</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">the</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">table</span><span 
+class="ecti-1000">.</span>&#x00A0;<br /><span class="label"><a 
+ id="x1-33016r16"></a></span>&#x00A0;&#x00A0;void&#x00A0;defaultParameters(Parameters&#x00A0;&amp;defaults)&#x00A0;<br /><span class="label"><a 
+ id="x1-33017r17"></a></span>&#x00A0;&#x00A0;{&#x00A0;<br /><span class="label"><a 
+ id="x1-33018r18"></a></span>&#x00A0;&#x00A0;&#x00A0;&#x00A0;defaults.addParameter(&#x00A0;"Amplitude"&#x00A0;,&#x00A0;0.2,&#x00A0;0.001,&#x00A0;0.15,&#x00A0;1.0&#x00A0;);<span 
+class="ecti-1000">//</span><span 
+class="ecti-1000">par</span><span 
+class="ecti-1000">[0]</span>&#x00A0;<br /><span class="label"><a 
+ id="x1-33019r19"></a></span>&#x00A0;&#x00A0;&#x00A0;&#x00A0;defaults.addParameter(&#x00A0;"Rate"&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;,&#x00A0;0.1,&#x00A0;0.001,&#x00A0;0.0,&#x00A0;&#x00A0;1.0&#x00A0;);<span 
+class="ecti-1000">//</span><span 
+class="ecti-1000">par</span><span 
+class="ecti-1000">[1]</span>&#x00A0;<br /><span class="label"><a 
+ id="x1-33020r20"></a></span>&#x00A0;&#x00A0;}&#x00A0;<br /><span class="label"><a 
+ id="x1-33021r21"></a></span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">//</span><span 
+class="ecti-1000">This</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">must</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">have</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">the</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">same</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">number</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">of</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">parameters</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">as</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">in</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">the</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">default</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">parameters</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">above</span><span 
+class="ecti-1000">.</span>&#x00A0;<br /><span class="label"><a 
+ id="x1-33022r22"></a></span>&#x00A0;&#x00A0;double&#x00A0;function(double&#x00A0;x,&#x00A0;const&#x00A0;std::vector&#x003C;double&#x003E;&#x00A0;par)&#x00A0;<br /><span class="label"><a 
+ id="x1-33023r23"></a></span>&#x00A0;&#x00A0;{&#x00A0;<br /><span class="label"><a 
+ id="x1-33024r24"></a></span>&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;return&#x00A0;par[0]<span 
+class="cmsy-10">*</span>exp(&#x00A0;<span 
+class="cmsy-10">-</span>&#x00A0;par[1]<span 
+class="cmsy-10">*</span>x);<span 
+class="ecti-1000">//</span><span 
+class="ecti-1000">par</span><span 
+class="ecti-1000">[0]</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">is</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">amplitude</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">and</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">par</span><span 
+class="ecti-1000">[1]</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">is</span><span 
+class="ecti-1000">&#x00A0;</span><span 
+class="ecti-1000">rate</span><span 
+class="ecti-1000">.</span>&#x00A0;<br /><span class="label"><a 
+ id="x1-33025r25"></a></span>&#x00A0;&#x00A0;}&#x00A0;<br /><span class="label"><a 
+ id="x1-33026r26"></a></span>}
+</div>
+<!--l. 586--><p class="noindent" >The user must follow these instructions:
+     <ul class="itemize1">
+     <li class="itemize">Make a copy of the file <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">newFunction.cpp</span></span></span> found in <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">etc/files</span></span></span>.
+     </li>
+     <li class="itemize">Rename the file (eg: newfct.cpp) and save it in the folder <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">fct/</span></span></span>.
+     </li>
+     <li class="itemize">cd to the directory fct, and run the script <span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">./compile</span></span></span> as root
+     </li>
+     <li class="itemize"><span 
+class="cmr-10">$  </span><span 
+class="ectt-1000">sudo ./compile name </span>(eg: sudo ./compile newfct.cpp)
+     </li>
+     <li class="itemize">This compiles the library and puts a copy in the library functions folder (<span class="obeylines-h"><span class="verb"><span 
+class="ectt-1000">/opt/bnmroffice/lib/</span></span></span>).</li></ul>
+                                                                                          
+                                                                                          
+ 
+</body></html> 
+
+                                                                                          
+
+

@@ -26,7 +26,8 @@
 /***************************************************************************
 List of Changes:
 ----------------------------------------------------------------------------
-TYPE  DATE        AUTHOR  DESCRIBE
+DATE        AUTHOR  DESCRIBE
+2016.02.21  Hassan  Added the lebels of the independent variable as used in mud.
 ***************************************************************************/
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
@@ -35,11 +36,32 @@ TYPE  DATE        AUTHOR  DESCRIBE
 //You must hange these according to where your data is stored.
 //Each folder must have subfolders for each year; eg 2014/ 2015 ..etc
 //The files contained in the year subfolders must be named as 04xxxx.msr
+
 const QString bnmrDataPath   = "/media/hassan/physics/triumf/data/bnmr/";
 const QString bnqrDataPath   = "/media/hassan/physics/triumf/data/bnqr/";
 
-//Root folder where the fit fcts are stored. PLEASE DO NOT CHANGE.
+
+//Root folder where the fit functions are stored. PLEASE DO NOT CHANGE.
 //IF YOU DO, Make SURE the Fct libraries are copied to the new fctPath
+
 const QString fctPath        = "/opt/bnmroffice/fct/";
+
+
+//Some default values
+//Warning: update these for new types of experiments
+#define DefaultBeamEnergy 28.0 //28 keV
+#define DefaultNaCellBias 0.10 //0.1 kV
+#define MaxBeamEnergy     30   //30keV, just as precaution in case the logged energy is too high.
+#define MaxHighField      9    //9 Tesla
+
+
+//Labels of independet variables as logged in mud files.
+//Different labels must be separated by a comma, no space.
+#define labels_BNMR_Field      "mag_field"
+#define labels_BNQR_Helmotz    "ILE2A1:HH"
+#define labels_NaCell_Bias     "ILE2:BIAS15:RDVOL"
+#define labels_Platforms_Bias  "BNQR:HVBIAS:RDVOL,BNMR:HVBIAS:POS"
+#define labels_Beam_Energy     "ITE:BIAS:RDVOL"
+#define labels_Cryo_Temp       "read_B"
 
 #endif

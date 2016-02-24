@@ -1,11 +1,15 @@
-BnmrOffice is used to search, view, and analyze TRIUM MUD/bnmr data, and ASCII data in general.
-It also does many other things such as simulations, database interface, and converting units.
-The pogram is open source and released under the General Pulbic Licence (GPL).
+# BnmrOffice
+BnmrOffice is a data analysis program used to analyze scientific data, especially 
+TRIUMF Beta-NMR data, and ASCII data in general. The program is also useful to carry 
+simulations, database query, and converting units.
+BnmrOffice is open source and released under the General Pulbic Licence (GPL).
 No warranty or guarrantee of the results is implied.
 If you are using this software in offline data analysis, please acknowledge the author
 in your acknowledgments section, if he is not a co-author of the project.
 It is the least you can do to encourage future developments and maintenance of the code.
 For any questions, please email at "saadaoui ^at^ triumf.ca".
+
+![alt tag](https://github.com/hsaadaoui/bnmroffice/blob/master/etc/doc/bnmroffice.png)
 
 Install instructions
 
@@ -151,9 +155,11 @@ Note: Please contact  for other options if your are unable to install XMGR.
     $ PATH=/usr/Qt/5.4/gcc_64/bin:$PATH  (change "/usr/Qt/5.4/gcc_64/bin" as per your system)
     $ export PATH
 
+    Note: You don't need to do this, if you intalled Qt with an rpm manager.
+
 -iv) Run qmake. 
 
-    $ qmake
+    $ qmake (or $qmake-qt5)
 
 -v ) Run make and make install (as root)
 

@@ -82,8 +82,6 @@ void Analysis::tabWidget_initials(void)
     anaGUI->tabWidget->addTab(iniTabWidget,"Initial parameters");
     connect(iniTabWidget,SIGNAL(tabCloseRequested(int)),
             this,SLOT(iniTabWidget_removeTab(int)));
-    connect(iniTabWidget,SIGNAL(tabCloseRequested(int)),
-            this,SLOT(iniTabWidget_removeTab(int)));
 }
 
 //kill tabs

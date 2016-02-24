@@ -26,7 +26,10 @@
 /***************************************************************************
 List of Changes:
 ----------------------------------------------------------------------------
-TYPE  DATE        AUTHOR  DESCRIBE
+DATE        AUTHOR  DESCRIBE
+20.02.2016  Hassan  Changed the values of the gyromagnetic ratios to more accurate values.
+                    The old values still ok are the change is insignificant. Removed
+                    some elements which had not been implemented.
 ***************************************************************************/
 #include "tab_simulations.h"
 #include "ui_tab_simulations.h"

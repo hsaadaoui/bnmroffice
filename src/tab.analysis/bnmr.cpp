@@ -762,7 +762,7 @@ void BNMR::Mode2e(QString inrun,QString outrun)
     infile.close();
 }
 
-/*Mode 1f and 1n*/
+/*Mode T1*/
 void BNMR::ModeT1(QString inrun,QString outrun)
 {
     QFile infile(inrun);
@@ -868,10 +868,11 @@ void BNMR::read_write(QString inFile,QString outFile,QVector<int>&killscan,
     {
         hist.resize(row+1);
         hist[row].push_back(0);//add empty columns at index 0
+
         for (int col = 1; col <= nbHists ; col ++)
         {
             indata >> x;
-            hist[row].push_back(x);//[col];
+            hist[row].push_back(x);
         }
         if ( hist[row][1] > max )
         {
@@ -932,7 +933,10 @@ QStringList BNMR::Asym_Type1(QString basename,int nb_scans,int Nb_pts_scan,
 
             namesets <<file2create;
 
-            ofstream outFile(file2create.toStdString().c_str());
+            QFile outfile(file2create);
+            outfile.open(QIODevice::WriteOnly|QIODevice::Text);
+            QTextStream outdata(&outfile);
+            outdata.setRealNumberNotation(QTextStream::FixedNotation);
 
             for (int i = fr ; i< to -1; i += dwtperfreq)
             {
@@ -942,17 +946,17 @@ QStringList BNMR::Asym_Type1(QString basename,int nb_scans,int Nb_pts_scan,
                     Freq = (hist[i][1] -   ((hist[1][1] - hist[0][1])/2) ) /1000 ;
                 else
                     Freq = hist[i][1] /1000 ;
-
                 nbsum =  hist[i][hSN] + hist[i][hSN+1] + hist[i][hSN+2]  + hist[i][hSN+3];
                 asy      =  gen_asym(M,hist,i,h1,h2,h3,h4,nbsum);
                 asym    =  asy.Mean;
                 dasym    =  asy.StdDev;
-
                 if( Freq >= x_min && Freq <= x_max && !isinf(Freq) && !isnan(Freq)
                         && !isinf(asym) && !isnan(asym) && !isinf(dasym) && !isnan(dasym) )
-                    outFile << Freq <<"\t" <<  runSign*asym <<"\t" << dasym <<endl;
+                    //outFile << Freq <<"\t" <<  runSign*asym <<"\t" << dasym <<endl;
+                    outdata << Freq <<"\t" <<  runSign*asym <<"\t" << dasym <<endl;
+
             }
-            outFile.close();
+            outfile.close();
         }
     }
     return namesets;

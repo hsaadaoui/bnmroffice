@@ -1,4 +1,4 @@
-            #-------------------------------------------------
+#-------------------------------------------------
 # File .pro created by H. Saadaoui 2015-01-10T
 #-------------------------------------------------
 
@@ -31,7 +31,7 @@ LIBS        += -lmud -lMinuit2 -lgomp
 SOURCES     += main.cpp \
                mainwindow.cpp \
                dialog_stream.cpp \
-               tab_search.cpp mudfunctions.c \
+                mudfunctions.c tab_search.cpp \
                tab_analysis.cpp fitting_routine.cpp plugin_read.cpp read_data.cpp \
                bnmr.cpp ascii.cpp \
                tab_results.cpp  \

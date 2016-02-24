@@ -1,27 +1,19 @@
 ======================================================================
 # Project leader and developer: Hassan Saadaoui
 # Email: saadaoui@triumf.ca
-# $Id: AUTHORS 2015-02-12
+# $Id: AUTHORS 2016-02-24
 ======================================================================
 
-
-
-
+Developper(s):
+-Hassan Saadaoui
 
 
 Contributions:
----------------------------------------------------------------------
 -Samir Tabbara: wrote the Van Vleck simulation code.
 
 
-
-
-
-
-
 Thanks to:
----------------------------------------------------------------------
--R.M.L. McFadden for sharing his detailed instructions of installing.
+-R.M.L. McFadden for comments/testing, and reporting on installing it.
 -bNMR group members at TRIUMF for suggestions.
 
 ======================================================================

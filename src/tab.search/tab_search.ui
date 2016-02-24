@@ -884,7 +884,7 @@
       <item row="3" column="2">
        <widget class="QLabel" name="label_temp">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This refers to temperature_B, and is stored in .msr files in &lt;/p&gt;&lt;p&gt;1- bnmr with reference &amp;quot;/Sample/read_B&amp;quot;.&lt;/p&gt;&lt;p&gt;2- bnqr with reference &amp;quot;/Sample1/read_B&amp;quot;.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can change this by editing the reference below.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Reference: tab_searchdata.cpp&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This refers to thermometer B, and is stored in .msr files in &lt;/p&gt;&lt;p&gt;1- bnmr with reference &amp;quot;/Sample/read_B&amp;quot;.&lt;/p&gt;&lt;p&gt;2- bnqr with reference &amp;quot;/Sample1/read_B&amp;quot;.&lt;/p&gt;&lt;p&gt;The code searchs for the value of &amp;quot;read_B&amp;quot; in the .mud header variables. &lt;/p&gt;&lt;p&gt;You can change this by editing the reference below.&lt;/p&gt;&lt;p&gt;Reference: tab_search.cpp&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Temp (K)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -897,7 +897,7 @@
       <item row="3" column="6">
        <widget class="QLabel" name="label_energy">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Energy = Initial beam - Voltage Na Cell - Platform bias&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can change this by editing the reference below.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Reference: tab_searchdata.cpp&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Energy = Initial beam - Voltage Na Cell - Platform bias.&lt;/p&gt;&lt;p&gt;If Initial beam is not found, a default value of 28keV is used.&lt;/p&gt;&lt;p&gt;If Voltage Na Cell is not found, a default value of 0.1keV.&lt;/p&gt;&lt;p&gt;If Platform bias is not found, a default value of 0 is used!!! You likely get the wrong energy!&lt;/p&gt;&lt;p&gt;You can change this by editing the reference below.&lt;/p&gt;&lt;p&gt;Reference: tab_search.cpp&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>Energy(keV)</string>
@@ -922,7 +922,7 @@
          <number>2020</number>
         </property>
         <property name="value">
-         <number>2015</number>
+         <number>2009</number>
         </property>
        </widget>
       </item>
@@ -1182,7 +1182,7 @@
          <number>2020</number>
         </property>
         <property name="value">
-         <number>2004</number>
+         <number>2009</number>
         </property>
        </widget>
       </item>
@@ -1279,7 +1279,7 @@
       <item row="3" column="11">
        <widget class="QLabel" name="label_field">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Magnetic field of &lt;/p&gt;&lt;p&gt;1- bnmr: nominal value of the solenoid in G. (stored in .msr as &amp;quot;/Magnet/mag_field&amp;quot;)&lt;/p&gt;&lt;p&gt;2- bnqr: 0.175 + 2.2131*HH_current.  (HH_current in Amps is refereed in .msr as &amp;quot;ILE2A1:HH:RDCUR&amp;quot;)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can change this by editing the reference below.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Reference: tab_searchdata.cpp.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Magnetic field of &lt;/p&gt;&lt;p&gt;1- bnmr: nominal value of the solenoid in G. (stored in .msr as &amp;quot;/Magnet/mag_field&amp;quot;)&lt;/p&gt;&lt;p&gt;2- bnqr: 0.175 + 2.2131*HH_current. (HH_current in Amps is refereed in .msr as &amp;quot;ILE2A1:HH:RDCUR&amp;quot;)&lt;/p&gt;&lt;p&gt;You can change this by editing the reference below.&lt;/p&gt;&lt;p&gt;Reference: tab_search.cpp.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>Field (G)</string>

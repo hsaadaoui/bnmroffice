@@ -47,6 +47,8 @@ public:
 
     QStringList   search_indvar(int, int);
 
+    bool          findLabel(QString,QString);
+
 signals:
 
     void          change(int);

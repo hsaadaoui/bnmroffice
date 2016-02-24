@@ -26,6 +26,7 @@
 List of Changes:
 ----------------------------------------------------------------------------
 TYPE  DATE        AUTHOR  DESCRIBE
+MI
 ***************************************************************************/
 
 
@@ -149,27 +150,33 @@ vector< vector<double> > Vleck_sim(int implanted, int target, int type_of_lattic
                                    double x,double y, double z)
 {
     int    lattice_str = 0; double gamma_l = 0.0, lattice_ct = 0.0, s = 0.0;
-    //http://www.easyspin.org/documentation/isotopetable.html
+    
+    //Definitions:
+    //gamma_l=Sum_i[f_i gn*μN/hbar], where f_i is the abundance 
+    //gn is the nuclear g factor (given is //http://www.easyspin.org/documentation/isotopetable.html)
+    //μN= 5.05078353×10−27 J/T  is the nulcear magneton
+    //hbar=1.054571800*10^-34 JS is the planck cst.
+    //μN/hbar=47.893882956 MHzT
+    //The values below are given in s-1 T
+    //for details see the python script vanvleck.py
+
     switch( target )
     {
-    case 0:  lattice_str = 1; gamma_l = 72636456;  lattice_ct =3.6149; s=1.5;break;//<Copper>
-    case 1:  lattice_str = 2; gamma_l = 65674000;  lattice_ct =3.3004; s=4.5;break;//<Niobium>
-    case 2:  lattice_str = 1; gamma_l = 69762715;  lattice_ct =4.0495; s=2.5;break;//<Aluminum>
-    case 3:  lattice_str = 1; gamma_l = -11673942; lattice_ct =4.0853; s=0.5;break;//<Silver>
-    case 4:  lattice_str = 1; gamma_l = 4730600;   lattice_ct =4.0782; s=1.5;break;//<Gold>
-    case 5:  lattice_str = 3; gamma_l = 0.0;       lattice_ct =5.65;   s=0.0;break;//<Gallium Arsenide>!!
-    case 6:  lattice_str = 4; gamma_l = 0.0;       lattice_ct =5.63;   s=0.0;break;//<Sodium Floride>!!
-    case 7:  lattice_str = 3; gamma_l = 0.0;       lattice_ct =5.65;   s= .0;break;//<Zinc Selonide>!!
-    case 8:  lattice_str = 1; gamma_l = 58385000;  lattice_ct =3.9242; s=0.5;break;//Pt!!
-    case 9:  lattice_str = 1; gamma_l = 39573420;  lattice_ct =0.;     s= .0;break;//Pd!!
-    case 10: lattice_str = 1; gamma_l = 55804600;  lattice_ct =4.9508; s= 0.5;break;//Lead!!
+    case 0:  lattice_str = 1; gamma_l = 72554195.19;  lattice_ct =3.6149; s=1.5;break;//<Copper>
+    case 1:  lattice_str = 2; gamma_l = 65672092.30;  lattice_ct =3.3004; s=4.5;break;//<Niobium>
+    case 2:  lattice_str = 1; gamma_l = 69762364.01;  lattice_ct =4.0495; s=2.5;break;//<Aluminum>
+    case 3:  lattice_str = 1; gamma_l =-11662405.13;  lattice_ct =4.0853; s=0.5;break;//<Silver>
+    case 4:  lattice_str = 1; gamma_l = 4653561.24;   lattice_ct =4.0782; s=1.5;break;//<Gold>
+    case 5:  lattice_str = 1; gamma_l = 58382643.32;  lattice_ct =3.9242; s=0.5;break;//Pt!!
+    case 6:  lattice_str = 1; gamma_l =-12308727.91;  lattice_ct =3.890;  s=2.5;break;//Pd!!
+    case 7:  lattice_str = 1; gamma_l = 56759998.56;  lattice_ct =4.9508; s=0.5;break;//Lead!!
     }
     lattice_ct = lattice_ct*AN;
     double x1 = 0,y1 = 0,z1 = 0,x2 = 0,y2 = 0,z2 = 0,x3 = 0,y3 = 0,z3 = 0; // Primitive vectors
     switch( lattice_str )
     {
-    case 0:x1=1;   y1= 0;   z1=0;    x2=0;   y2= 1;   z2= 0;   x3= 0;  y3 = 0;   z3=1;   break;/*** sc ***/
-    case 1:x1=0.5; y1= 0.5; z1=0.0;  x2=0.5; y2= 0.0; z2= 0.5; x3= 0.0;y3 = 0.5; z3= 0.5;break;/*** fcc ***/
+    case 0:x1=1.0; y1= 0.0; z1= 0.0; x2= 0.0;y2= 1.0; z2= 0.0; x3= 0.0;y3 =  0.0;z3= 1.0;break;/*** sc ***/
+    case 1:x1=0.5; y1= 0.5; z1= 0.0; x2= 0.5;y2= 0.0; z2= 0.5; x3= 0.0;y3 =  0.5;z3= 0.5;break;/*** fcc ***/
     case 2:x1=0.5; y1= 0.5; z1=-0.5; x2=-0.5;y2= 0.5; z2= 0.5; x3= 0.5;y3 = -0.5;z3= 0.5;break;/*** bcc ***/
     case 3:x1=0.5; y1= 0.5; z1=-0.5; x2=-0.5;y2= 0.5; z2= 0.5; x3= 0.5;y3 = -0.5;z3= 0.5;break;/**Diamond!!*/
     case 4:x1=0.5; y1= 0.5; z1=-0.5; x2=-0.5;y2= 0.5; z2= 0.5; x3= 0.5;y3 = -0.5;z3= 0.5;break;/*SaltRock!!*/
@@ -179,16 +186,18 @@ vector< vector<double> > Vleck_sim(int implanted, int target, int type_of_lattic
     double gamma_i = 0.0;
     switch( implanted )
     {
+    //http://bnmr.triumf.ca/?file=Introduction
+    //
     case 0: gamma_i      = 6301500.; break; //Li-8
     case 1: gamma_i      = 135534200;break; //muon
     case 2: gamma_i      = 22000000; break; //Be-11
-    case 3: gamma_i      = 42576000; break; //protons
-    case 4: gamma_i      = 7654077.; break; //Boron
-    case 5: gamma_i      = 72636456; break; //Cu
-    case 6: gamma_i      = 65674000; break; //Niobium
-    case 7: gamma_i      = 69762715; break; //Aluminium
-    case 8: gamma_i      =-11673942; break; //Silver
-    case 9: gamma_i      = 4730600;  break; //Gold
+    case 3: gamma_i      = 267520607.23; break; //protons
+    case 4: gamma_i      = 74483671.04; break; //Boron
+    case 5: gamma_i      = 72554195.19; break; //Cu
+    case 6: gamma_i      = 65672092.30; break; //Niobium
+    case 7: gamma_i      = 69762364.01; break; //Aluminium
+    case 8: gamma_i      =-11662405.13; break; //Silver
+    case 9: gamma_i      = 4653561.24;  break; //Gold
     }
     /*** Read Input Sites for implanting***/
     float X_IMPL = x, Y_IMPL= y, Z_IMPL= z;

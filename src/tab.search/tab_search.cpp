@@ -26,9 +26,13 @@
 /***************************************************************************
 List of Changes:
 ----------------------------------------------------------------------------
-TYPE  DATE        AUTHOR  DESCRIBE
-NEW   2014-12-20  HASSAN  Added more button for more experiment variables
-NEW   2014-12-20  HASSAN  Added Temp, Energy and field lineEdits
+DATE        AUTHOR  DESCRIBE
+2014-12-20  HASSAN  Added more button for more experiment variables
+2014-12-20  HASSAN  Added Temp, Energy and field lineEdits
+2016-02-20  Hassan  Fixed bugs of variables output.
+2016-02-20  Hassan  Added checks for units.
+2016-02-20  Hassan  Modified the structure of the logs.txt file.
+2016-02-21  Hassan  Added labels_variables.
 ***************************************************************************/
 
 //C++ libraries
@@ -78,7 +82,6 @@ Search::~Search()
 
 void Search::on_pushButton_plot_clicked()
 {
-    //qDebug()<<"main class="<< this->parent()->parent()->parent()->objectName();
     //copy the user selection (checked runs) and paste them into data lineedit in the analysis tab.
     QString runs = checked_runs();
     foreach(QObject *obj, this->parent()->children())
@@ -150,11 +153,10 @@ void Search::on_pushButton_checkall_clicked()
 }
 
 
-QStringList logLabel,logSymbol,logExp,logPath,logUnit,logBool,
-tickedlogLabel,tickedlogSymbol,tickedlogPath,tickedlogExp;
+QStringList logLabel,logSymbol,logPath,logBool,tickedlogLabel,tickedlogSymbol,tickedlogPath;
 void Search::readLogs()
 {
-    //The name of the fike that contains the bnmr/bnqr names/path of logged variables.
+    //The name of the file that contains the bnmr/bnqr names/path of logged variables.
     QString dataFile="bnmr-bnqr-logs.txt";
     //First check if it exist under the user directory,
     //means the user has made a local copy.
@@ -189,9 +191,8 @@ void Search::readLogs()
             Args = inDataFile.readLine().split(QRegExp("\\s+"));
             logLabel <<Args.at(0);
             logSymbol<<Args.at(1);
-            logExp   <<Args.at(2);
-            logPath  <<Args.at(3);
-            logUnit  <<Args.at(4);
+            logPath  <<Args.at(2);
+            //logUnit  <<Args.at(4);
             logBool  <<"no";
         }
     }
@@ -204,17 +205,29 @@ QStringList Search::listDefaultHeaders(void)
     return list;
 }
 
+bool Search::findLabel(QString name,QString var)
+{
+    QStringList labels = var.split( "," );
+    for (int m = 0; m < labels.size(); m++)
+        if (name.contains(labels[m],Qt::CaseInsensitive))
+             return true;
+    return false;
+}
+
+
 QStringList Search::search_indvar(int run, int year)
 {
     QStringList stringlist;
     QString exp = "bnmr" ;
-    if(run > 45000)   exp = "bnqr";
+    if(run > 45000)
+        exp = "bnqr";
 
     double time = 0.0, field = 0.0, energy = 0.0, temp = 0.0;
     double dfield = 0.0, denergy = 0.0, dtemp = 0.0;
     double v_na_cell = 0.0, platform_bias = 0.0, initial_energy = 0.0;
     QString title="title",type="30";
     int nbIndVar = 0;
+
     QStringList tickedvars;
     for (int t = 0; t< tickedlogPath.size(); t++)
         tickedvars <<"0";
@@ -226,55 +239,65 @@ QStringList Search::search_indvar(int run, int year)
         time          =  floor(getdesc.ElapsedSec / 60.);
         type          =  QString::fromStdString(getdesc.Insert);
         title         =  QString::fromStdString(getdesc.Title);
-        nbIndVar          =  getdesc.Nb_ind_vrbls;
+        nbIndVar      =  getdesc.Nb_ind_vrbls;
+
 
         for (int i = 0; i< nbIndVar; i++)
         {
-            //Check these defenitions and  path// 15.12.2014
-            if (strcmp("/Magnet/mag_field", getdesc.Name[i] ) == 0)
+            QString name = QString::fromStdString(getdesc.Name[i]);
+            double mean  = getdesc.Mean[i];
+
+            if (findLabel(name,labels_BNMR_Field))
             {
-                field =  getdesc.Mean[i]*10000;//10000 for Tesla->Gauss conversion
+                double unit = 10000.0;//10000 for Tesla->Gauss conversion
+                if (mean >MaxHighField)//the field is given in gauss!
+                    unit = 1.0;//no conversion needed
+                field =  mean*unit;
             }
-            if (strcmp("ILE2A1:HH:RDCUR", getdesc.Name[i] ) == 0)
+            else if (findLabel(name,labels_BNQR_Helmotz))
             {
-                field =  0.175 + 2.2131*getdesc.Mean[i];//calibration equation
+                field =  0.175 + 2.2131*mean;//calibration equation
             }
-            if (strcmp("BNQR:HVBIAS:RDVOL", getdesc.Name[i] ) == 0 ||
-                    strcmp("BNMR:HVBIAS:POS:", getdesc.Name[i] ) == 0 ||
-                    strcmp("BNMR:HVBIAS:POS:RDVOL", getdesc.Name[i] ) == 0 )
+            else if (findLabel(name,labels_Platforms_Bias))
             {
-                platform_bias	=  getdesc.Mean[i]/1000;//1000 for V to kV conversion
+                double unit = 1.0;//Default unit is kV
+                if (mean > MaxBeamEnergy)//Energy must be given in Volts
+                        unit = 1000.0;//1000 for V to kV conversion
+                platform_bias	=  mean/unit;
             }
-            if (strcmp("ITE:BIAS:RDVOL", getdesc.Name[i] ) == 0  )
+            else if (findLabel(name,labels_Beam_Energy))
             {
-                initial_energy	=  getdesc.Mean[i]/1000;//1000 for V to kV conversion
+                double unit = 1.0;//Default unit is kV
+                if (mean > MaxBeamEnergy)//Energy must be given in Volts
+                        unit = 1000.0;//1000 for V to kV conversion
+                initial_energy	=  mean/unit;
             }
-            if (strcmp("ILE2:BIAS15:RDVOL", getdesc.Name[i] ) == 0  )
+            else if (findLabel(name,labels_NaCell_Bias))
             {
-                v_na_cell   	=  getdesc.Mean[i]/1000;//1000 for V to kV conversion
+                v_na_cell   	=  mean/1000;//1000 for V to kV conversion
             }
-            if (strcmp("/Sample/read_B", getdesc.Name[i] ) == 0  ||
-                    strcmp("/Sample1/read_B", getdesc.Name[i] ) == 0  )
+            else if (findLabel(name,labels_Cryo_Temp))
             {
-                temp = getdesc.Mean[i];
+                temp = mean;
             }
+
             for (int t = 0; t< tickedlogPath.size(); t++)
             {
-                if (strcmp(tickedlogPath.at(t).toStdString().c_str(), getdesc.Name[i] ) == 0)
-                {
-                    tickedvars[t] = QString::number(getdesc.Mean[i],'f',2);
-                }
+                if (findLabel(name,tickedlogPath[t]))
+                   tickedvars[t] = QString::number(mean,'f',2);
             }
         }
-        //Energy in kV...maybe! If .msr file has the correct units.
-        //qDebug() <<initial_energy << platform_bias << v_na_cell;
-        if (initial_energy== 0)
-        {
-            initial_energy = 28.0 ;
-            //cout << "Warning: the initial energy was not logged in. A default value of 28 is used.\n";
-        }
+
+        //Energy in kV...maybe! If .msr file has the correct units. Else
+        if (initial_energy == 0)
+            initial_energy = DefaultBeamEnergy ;//cout << "Warning: the initial energy was not logged in.\n";
+
+        //If na cell bias cannot be found use the default value (0.1kV)
+        if ( v_na_cell     == 0)
+            v_na_cell = DefaultNaCellBias;
         energy	=  initial_energy - platform_bias - v_na_cell;
     }
+
     //write the list of ind variables
     stringlist << QString::number(run)
                << QString::number(year)
@@ -551,7 +574,7 @@ void updatelogs::change_logSelection(int arg)
 
 void updatelogs::update_logSelection()
 {
-    tickedlogLabel.clear(), tickedlogSymbol.clear(), tickedlogPath.clear(), tickedlogExp.clear();
+    tickedlogLabel.clear(), tickedlogSymbol.clear(), tickedlogPath.clear();
     for (int l = 0; l < logLabel.size();l++)
     {
         if (logBool.at(l) == "yes" )
@@ -559,7 +582,6 @@ void updatelogs::update_logSelection()
             tickedlogLabel<< logLabel.at(l);
             tickedlogSymbol<< logSymbol.at(l);
             tickedlogPath << logPath.at(l);
-            tickedlogExp  << logExp.at(l);
         }
     }
 }

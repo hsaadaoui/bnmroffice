@@ -182,5 +182,7 @@ Note: Please contact  for other options if your are unable to install XMGR.
 Read the instructions/tutorials under ------> menubar/Help <--------
 
 Hassan Saadaoui
+
 saadaoui ^at^ triumf.ca
+
 Copyright© 2015

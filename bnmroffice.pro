@@ -25,7 +25,6 @@ INCLUDEPATH += $$DEPENDPATH
 
 VPATH       += $$DEPENDPATH
 
-
 LIBS        += -lmud -lMinuit2 -lgomp
 
 SOURCES     += main.cpp \

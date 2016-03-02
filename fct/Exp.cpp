@@ -31,7 +31,7 @@ extern "C"
   //Write the description here. Not critical.
   void description(string &text)
   {
-    text = "Name of Function: exponential.<br><br>"
+    text = "Name of the Function: exponential.<br><br>"
             "f(x) = par[0]*exp( -par[1]*x )<br><br>"
             "where:<br>"
             "par0 = Amplitude<br>"

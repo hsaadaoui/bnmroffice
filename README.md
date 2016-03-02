@@ -1,8 +1,7 @@
 # BnmrOffice
 BnmrOffice is a data analysis program used to analyze scientific data, especially 
 TRIUMF Beta-NMR data, and ASCII data in general. The program is also useful to carry 
-simulations, database query, and converting units.
-
+simulations, database query, and converting units. 
 BnmrOffice is open source and released under the General Pulbic Licence (GPL).
 No warranty or guarrantee of the results is implied.
 If you are using this software in offline data analysis, please acknowledge the author

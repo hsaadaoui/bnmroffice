@@ -71,7 +71,6 @@ Install instructions
 
      $ sudo cp ./src/mud.h /usr/include/
 
-
 4) XMGR: 
 
 -i) downloand and Unpack  xmgr from https://github.com/mlund/xmgr-resurrection
@@ -179,7 +178,7 @@ Note: Please contact  for other options if your are unable to install XMGR.
 
     $./bnmroffice if not installed as root.
 
-Read the instructions/tutorials under ------> menubar/Help <--------
+Read the instructions/tutorials under menubar/Help
 
 Hassan Saadaoui
 

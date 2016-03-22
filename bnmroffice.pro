@@ -60,9 +60,13 @@ FORMS       += mainwindow.ui \
                tab_database.ui
 
 BUILDDIR     = $$PWD/bin
+
 OBJECTS_DIR  = $${BUILDDIR}
+
 MOC_DIR      = $${BUILDDIR}
+
 RCC_DIR      = $${BUILDDIR}
+
 UI_DIR       = $${BUILDDIR}
 
 RESOURCES   += ./etc/resources.qrc

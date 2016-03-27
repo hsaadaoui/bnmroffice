@@ -20,7 +20,6 @@ Install instructions
   
   - Install Qt.4.x.x or 5.x binary & source packages.
 
-
 2) Minuit:
 
 -i) Download latest Minuit2 located at:

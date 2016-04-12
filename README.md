@@ -136,8 +136,6 @@ Note: Please contact  for other options if your are unable to install XMGR.
 
     $ sudo ldconfig
 
-
-
 6) bnmroffice:
 
 -i) cd to the downloaded package

@@ -9,6 +9,7 @@ in your acknowledgments section, if he is not a co-author of the project.
 It is the least you can do to encourage future developments and maintenance of the code.
 For any questions, please email at "saadaoui ^at^ triumf.ca".
 
+
 ![alt tag](https://github.com/hsaadaoui/bnmroffice/blob/master/etc/doc/bnmroffice.png)
 
 Install instructions

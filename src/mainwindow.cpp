@@ -74,6 +74,7 @@ void Mainwindow::createGraphics()
                   "QFrame {background-color:rgba(171,224,137,255);}");
 }
 
+
 void Mainwindow::createPages()
 {
     QLabel *owner = new QLabel("BnmrOffice 2015 (c) Hassan Saadaoui");
